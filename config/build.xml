@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. -->
+<project basedir="."  default="init" name="Ant">
+    <property environment="env"/>
+    <property name="target" value="1.8"/>
+    <property name="source" value="1.8"/>
+    <property name="src.dir" value="src" />  
+    <property name="build.dir" value="build" />  
+    <property name="lib.dir" value="lib" />  
+    <property name="dist.dir" value="dist" />
+	<property name="config.dir" value="config" />
+	<property name="release.dir" value="release" />
+    <path id="jar-classpath">  
+       <fileset file="${lib.dir}/*.jar" />  
+    </path>
+    <target name="init">  
+        <!-- 输出标签 ，${init}是builds.properties中的属性 -->  
+        <echo message="  Available Targets:"/>    
+        <echo message="-------------------------------------------------------"/>    
+        <echo message="  init ${init}   ..."/>    
+        <echo message="-------------------------------------------------------"/>   
+    </target>  
+    <target name="compile" depends="init" description="compile the source files">  
+    	<!-- 删除文件夹 -->  
+    	<delete dir="${build.dir}" />  
+    	<!-- 创建文件夹 -->  
+    	<mkdir dir="${build.dir}" />  
+    	              	              	              	            
+    	<javac srcdir="${src.dir}" destdir="${build.dir}">  
+    	<!-- 编译需要的jar包 引用前面设置的class-path -->  
+    		<classpath refid="jar-classpath" />  
+    	</javac>  
+    	<!-- copy log4j.properties-->
+    	<!---copy fir -->
+    	<copy todir="${build.dir}" >
+    		<fileset dir="${config.dir}"></fileset>
+    	</copy>
+    </target>  
+    <!-- 打包成jar -->  
+    <target name="jar" description="make .jar file">  
+    	              	              	              	  
+    	<delete dir="${dist.dir}" />  
+    	              	              	              	  
+    	<mkdir dir="${dist.dir}" />
+    	
+    	
+    	<!-- 该标签用来生成一个JAR文件，其属性如下  
+    	    (1) destfile表示JAR文件名。   
+    	    (2) basedir表示被归档的文件名。要操作的文件路径   
+    	    (3) includes表示别归档的文件模式。   
+    	    (4) exchudes表示被排除的文件模式。   
+    	-->  
+    	<jar destfile="${dist.dir}/Ant.jar" basedir="${build.dir}">  
+    		<manifest>
+    	    	<attribute name ="Main-Class"  value ="com.guanning.AntBuild"/>
+    	    	<attribute name="Class-Path" value="gson-2.7.jar log4j-1.2.17.jar"/>
+    		</manifest>
+    	</jar>  
+    	<copy todir="${dist.dir}" >
+			<fileset dir="${lib.dir}"></fileset>
+    	</copy>        	              	              	  
+    </target>    	
+	<!-- 生成zip压缩包 -->  
+	<target name="zip">  
+		<delete dir="${release.dir}" />  
+	    <mkdir dir="${release.dir}" />  
+		<!-- 该标签用来生成一个zip文件，其属性如下  
+	        (1) destfile表示zip文件名。   
+	        (2) basedir表示被归档的文件名。 要操作的文件路径  
+	        (3) includes表示别归档的文件模式。   
+	        (4) exchudes表示被排除的文件模式。   
+	    -->  
+	    <zip destfile="${release.dir}/antTest.zip" update="true"   
+	                   basedir="${dist.dir}" />  
+	</target>   	
+
+
+</project>
