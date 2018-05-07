@@ -3,6 +3,8 @@ package com.guanning.web.controller;
 import com.guanning.web.vo.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -26,8 +28,17 @@ public class IndexController {
     }
 
     @RequestMapping(value = "/login",method = RequestMethod.GET)
-    public String login(){
+    public String login(Model model){
+        User user = new User("guanning",0);
+        model.addAttribute("user",user);
         return "login";
+    }
+
+    @RequestMapping(value = "/result",method = RequestMethod.GET)
+    public String result(@ModelAttribute(value = "user") User user,Model model){
+        System.out.print(user.name);
+        model.addAttribute("user",user);
+        return "result";
     }
 
 }
