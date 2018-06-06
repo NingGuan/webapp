@@ -1,22 +1,14 @@
 package com.guanning.web.vo;
 
-import java.io.Serializable;
+public class User {
+    public int age;
+    public String name;
 
-public class User implements Serializable {
-    public User(String name,int age){
-        this.name = name;
+    public User() {
+    }
+
+    public User(String name, int age) {
         this.age = age;
-    }
-
-    public User(){
-
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
         this.name = name;
     }
 
@@ -28,6 +20,11 @@ public class User implements Serializable {
         this.age = age;
     }
 
-    public String name;
-    public int age;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

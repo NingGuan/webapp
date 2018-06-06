@@ -1,13 +1,14 @@
 package com.guanning.web.controller;
 
+import com.guanning.web.mapper.PidMapper;
+import com.guanning.web.vo.Pid;
 import com.guanning.web.vo.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,9 @@ import java.util.List;
 public class IndexController {
 
     private final Logger logger = LoggerFactory.getLogger(IndexController.class);
+
+    @Autowired
+    public PidMapper pidMapper;
 
     @RequestMapping(value = "/index",method = RequestMethod.GET)
     public String index(Model model){
@@ -43,6 +47,20 @@ public class IndexController {
         logger.debug("debug");
         model.addAttribute("user",user);
         return "result";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/getpid",method = RequestMethod.GET)
+    public String getpid(@RequestParam(value = "name",required = true) String name){
+        Pid pid = new Pid();
+        pid.setId("hello");
+        pid.setName("hello");
+
+        pid = pidMapper.selectByPrimaryKey("hello");
+        logger.debug("debug");
+        logger.debug(pid.getName());
+        //pidMapper.insert(pid);
+        return "success";
     }
 
 }
