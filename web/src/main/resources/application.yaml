@@ -18,5 +18,3 @@ debug: true
 logging:
   level:
     root: debug
-
-

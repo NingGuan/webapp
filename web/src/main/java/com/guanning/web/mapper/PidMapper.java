@@ -1,7 +1,9 @@
 package com.guanning.web.mapper;
 
 import com.guanning.web.vo.Pid;
+import org.springframework.stereotype.Component;
 
+@Component
 public interface PidMapper {
     int deleteByPrimaryKey(String id);
 
